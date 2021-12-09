@@ -275,6 +275,12 @@
             "has_examples": true
         },
         {
+            "code": "mn",
+            "name": "Mongolian",
+            "example": "Энэ бол өгүүлбэр.",
+            "has_examples": true
+        },
+        {
             "code": "mr",
             "name": "Marathi"
         },
