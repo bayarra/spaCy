@@ -283,7 +283,7 @@ class TextCategorizer(TrainablePipe):
             return losses
         set_dropout_rate(self.model, drop)
         scores, bp_scores = self.model.begin_update(docs)
-        target = self._rehearsal_model(examples)
+        target, _ = self._rehearsal_model.begin_update(docs)
         gradient = scores - target
         bp_scores(gradient)
         if sgd is not None:
@@ -320,7 +320,7 @@ class TextCategorizer(TrainablePipe):
         self._validate_categories(examples)
         truths, not_missing = self._examples_to_truth(examples)
         not_missing = self.model.ops.asarray(not_missing)  # type: ignore
-        d_scores = (scores - truths)
+        d_scores = scores - truths
         d_scores *= not_missing
         mean_square_error = (d_scores**2).mean()
         return float(mean_square_error), d_scores
